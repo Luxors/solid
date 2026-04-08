@@ -1,12 +1,14 @@
 import type { Component } from 'solid-js';
-import Comp from './Comp';
+import Card from './components/Card';
 
 const App: Component = () => {
   return (
-    <>
-      <h1>Hello world!!!!</h1>
-      <Comp />
-    </>
+    <main class="app-main">
+      <h1 class="app-title">Ты сегодня покормил кота?</h1>
+      <div class="app-products">
+        <Card />
+      </div>
+    </main>
   );
 };
 
