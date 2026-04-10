@@ -1,12 +1,29 @@
+import { createSignal } from 'solid-js';
+
+import '../assets/styles/card.css';
+
 import { plural } from '../utils/plural';
 import { ICard } from '../utils/types';
 
 import catImage from '../assets/images/cat.png';
+import Slogan from './Slogan';
 
 export default function Card(props: ICard) {
+  const [isSelected, setIsSelected] = createSignal(false);
+
+  function toggleSelect() {
+    setIsSelected(!isSelected());
+  }
+
   return (
-    <article>
-      <div class="card-wrapper">
+    <article
+      class="card"
+      classList={{
+        'card--selected': isSelected(),
+        'card--disabled': props.isDisabled,
+      }}
+    >
+      <div class="card-wrapper" onClick={toggleSelect}>
         <div class="card-background"></div>
         <div class="card-product">
           <div class="card-promo">сказочное заморское яство</div>
@@ -29,14 +46,14 @@ export default function Card(props: ICard) {
           <span class="card-weight__label">кг</span>
         </div>
       </div>
-      {/* <footer class="card-footer">
-    <CardSlogan
-      slogan={card.slogan}
-      isSelected={isSelected}
-      isDisabled={card.isDisabled}
-      onClick={toggleSelected}
-    />
-  </footer> */}
+      <footer class="card-footer">
+        <Slogan
+          slogan={props.slogan}
+          isDisabled={props.isDisabled}
+          isSelected={isSelected()}
+          click={toggleSelect}
+        />
+      </footer>
     </article>
   );
 }
